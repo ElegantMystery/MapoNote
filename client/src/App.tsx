@@ -1,14 +1,17 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import SideBar from './components/Sidebar/Sidebar';
 import Tabs from './components/Tabs/Tabs';
 
-function App() {
+const App: React.FC= () => {
   return (
-    <div className="App">
-      <SideBar />
-      <Tabs />
-    </div>
+    <Router>
+      <div className="app-container">
+        <SideBar />
+        <Tabs />
+      </div>
+    </Router>
   );
 }
 

@@ -1,12 +1,16 @@
 import React from 'react';
 import './Tabs.css';
+import { Routes, Route } from 'react-router-dom';
+import HomeTab from './HomeTab';
+import Notes from '../Notes/NotesContainer';
 
-function Tabs() {
+const Tabs: React.FC = () => {
   return (
     <div className="tabs">
-      {/* Add your main content here */}
-      <h1>Main Content</h1>
-      <p>This is the main area of the application.</p>
+      <Routes>
+        <Route path="/" element={<HomeTab />} />
+        <Route path="/notes" element={<Notes />} />
+      </Routes>
     </div>
   );
 }

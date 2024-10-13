@@ -1,0 +1,51 @@
+:root {
+    --container-height: 498px;
+}
+
+.note-container {
+    display: flex;       
+    height: 100vh;
+}
+
+.note-tabs {
+    width: 400px;
+}
+
+.note-content {
+    flex-grow: 1; 
+    padding: 0px; 
+    background-color: #ffffff;
+}
+
+.note-border {
+    border-top: 2px solid #abab;     
+    border-left: 2px solid #abab;    
+    border-bottom: 2px solid #abab; 
+    border-right: none;  
+    border-radius: 5px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+section {
+    position: relative;
+    timeline-scope: --listTimeline;
+    overflow-x: auto;
+    background-color: #ebebeb;
+}
+
+.note-tabs-ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.note-tabs-li {
+    padding: 20px;
+    border-top: 1px solid #ccc;
+    scroll-snap-align: start;
+}
+
+.note-tabs-li.active {
+    background-color: #698dfb;
+}
+

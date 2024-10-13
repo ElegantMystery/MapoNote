@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "target": "es2019",
+      "module": "commonjs",
+      "lib": ["esnext"],
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "strict": true,
+      "baseUrl": "./",
+      "outDir": "./dist",
+      "types": ["node", "express"]
+    },
+    "include": ["src/**/*"]
+  }
+  

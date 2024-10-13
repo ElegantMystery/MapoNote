@@ -1,5 +1,4 @@
 .tabs {
-    flex-grow: 1; /* Takes up the remaining space */
-    background-color: #fff; /* White background */
-    padding: 20px;
-  }
+    flex-grow: 1;
+    background-color: #fff; 
+}
