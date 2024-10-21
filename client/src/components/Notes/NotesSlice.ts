@@ -70,7 +70,7 @@ export const saveNote = createAsyncThunk(
   
       const payload = {
         title,
-        content: rawContent
+        editorState: rawContent
       };
   
       try {

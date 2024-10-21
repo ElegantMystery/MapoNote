@@ -73,13 +73,13 @@ app.get('/notes/:noteId', async (req: Request, res: Response) => {
     }
 });
 
-app.post('/notes/:noteId', async (req, res) => {
+app.put('/notes/:noteId', async (req, res) => {
     const { noteId } = req.params;
-    const { title, content } = req.body;
+    const { title, editorState } = req.body;
 
     try {
         // Find the note by ID and update it
-        const updatedNote = await Note.findByIdAndUpdate(noteId, { title, content, updatedAt: Date.now() }, { new: true });
+        const updatedNote = await Note.findByIdAndUpdate(noteId, { title, editorState, updatedAt: Date.now() }, { new: true });
 
         if (!updatedNote) {
             res.status(404).send({ message: 'Note not found' });

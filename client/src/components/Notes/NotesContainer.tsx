@@ -6,12 +6,14 @@ import TextEditor from '../TextEditor/TextEditor';
 import { RootState } from '../../store';
 import { EditorState } from 'draft-js';
 import './Notes.css';
+import { Before } from 'v8';
 
   
 const NotesContainer: React.FC = () => {
   const { notes, activeNote, status, error } = useSelector((state: RootState) => state.notes);
-  const dispatch = useDispatch();
   const [localEditorState, setLocalEditorState] = useState(EditorState.createEmpty());
+  const [unsavedChanges, setUnSavedChanges] = useState<{ [key: string]: boolean}>({});
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (status === 'idle') {
@@ -29,10 +31,26 @@ const NotesContainer: React.FC = () => {
     }
   }, [activeNote, notes]);
 
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (Object.values(unsavedChanges).some(isUnsaved => isUnsaved)) {
+        event.preventDefault();
+        event.returnValue = 'You have unsaved changes'
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    }
+  }, [unsavedChanges]);
+
   const handleTabClick = (noteId: string) => {
     if (noteId !== activeNote) {
       dispatch(setEditorState({ noteId: activeNote, editorState: localEditorState }));
       dispatch(setActiveNote(noteId));
+      handleSaveClick();
     }
   };
 
@@ -43,6 +61,7 @@ const NotesContainer: React.FC = () => {
       editorState: localEditorState
     };
     dispatch(saveNote(noteData));
+    setUnSavedChanges(prev => ({ ...prev, [activeNote as string]: false}));
   }
 
   if (status === 'loading') return <p>Loading notes...</p>;
@@ -50,6 +69,9 @@ const NotesContainer: React.FC = () => {
 
   const handleEditorChange = (newState: EditorState) => {
     setLocalEditorState(newState);
+    if (activeNote) {
+      setUnSavedChanges(prev => ({ ...prev, [activeNote]: true}));
+    }
   };
 
 
